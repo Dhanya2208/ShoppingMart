@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<products>
+    <product>
+        <name>Organic Carrot</name>
+        <category>Vegetables</category>
+    </product>
+    <product>
+        <name>Plastic Chair</name>
+        <category>Furniture</category>
+    </product>
+    <product>
+        <name>Frying Pan</name>
+        <category>Cooking</category>
+    </product>
+    <product>
+        <name>Leather Sofa</name>
+        <category>Furniture</category>
+    </product>
+</products>

@@ -1,0 +1,247 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    
+    
+    <link rel="stylesheet" href="style1.css">
+    <title>SHOPPINGMART</title>
+
+</head>
+<body>
+    
+     
+    <div class="header">
+
+        <a href="home.jsp">Home</a>
+        <a href="login.jsp">Login</a>
+        <a href="order.jsp">Orders</a>
+        <a href="experience.jsp">Experience</a>
+         <a href="searchFeedback.jsp">Search Feedbacks</a>
+         <a href="viewCart.jsp">view Cart</a>
+         
+        <h1>SHOPPINGMART</h1>
+    </div>
+ <div style="text-align:center; margin: 20px;">
+    <input type="text" id="searchBox" onkeyup="searchAll()" 
+           placeholder="Search products..."
+           style="padding:10px; width:60%; font-size:16px; border-radius:5px; border:1px solid #ccc;">
+    <div id="results" style="max-width:600px; margin:10px auto; background:#fff; border:1px solid #ccc; display:none;"></div>
+</div>
+
+<script>
+function searchAll() {
+    let query = document.getElementById("searchBox").value;
+    let resultsDiv = document.getElementById("results");
+
+    if (query.length === 0) {
+        resultsDiv.style.display = "none";
+        return;
+    }
+
+    resultsDiv.style.display = "block";
+    resultsDiv.innerHTML = "<em>Loading...</em>";
+
+   
+    let xhr1 = new XMLHttpRequest();
+    xhr1.onreadystatechange = function() {
+        if (this.readyState === 4 && this.status === 200) {
+            resultsDiv.innerHTML = "<h4>From Servlet</h4>" + this.responseText;
+        }
+    };
+    xhr1.open("GET", "SearchServlet?q=" + encodeURIComponent(query), true);
+    xhr1.send();
+
+    
+    let xhr2 = new XMLHttpRequest();
+    xhr2.onreadystatechange = function() {
+        if (this.readyState === 4 && this.status === 200) {
+            let xmlDoc = this.responseXML;
+            let items = xmlDoc.getElementsByTagName("product");
+            let output = "<h4>From XML</h4>";
+            for (let i = 0; i < items.length; i++) {
+                let name = items[i].getElementsByTagName("name")[0].textContent;
+                if (name.toLowerCase().includes(query.toLowerCase())) {
+                    output += "<div class='item'>" + name + "</div>";
+                }
+            }
+            resultsDiv.innerHTML += output;
+        }
+    };
+    xhr2.open("GET", "products.xml", true);
+    xhr2.send();
+}
+</script>
+
+   
+
+    
+    <div class="category-container">    
+        <div class="category-row">
+            <div class="category-item">
+                <div class="category-img-container">
+                    <img src="https://tse2.mm.bing.net/th/id/OIP.xlX2rUvxoS-SApi24IcgCwHaEK?pid=Api&P=0&h=180" alt="Vegetables">
+                </div>
+                <div class="category-info">
+                    <h2>Fresh Vegetables</h2>
+                    <p>High-quality farm fresh vegetables delivered to your doorstep</p>
+                    <a href="Vegetables.jsp" class="shop-btn">Shop Now</a>
+                </div>
+            </div>
+            
+            <div class="category-item">
+                <div class="category-img-container">
+                    <img src="https://tse1.mm.bing.net/th/id/OIP.5z1BGv2R9qcHY3Z7uvekbAHaDj?pid=Api&P=0&h=180" alt="Furniture">
+                </div>
+                <div class="category-info">
+                    <h2>Quality Furniture</h2>
+                    <p>Stylish and comfortable furniture for your home and office</p>
+                    <a href="Furniture.jsp" class="shop-btn">Shop Now</a>
+                </div>
+            </div>
+            
+            <div class="category-item">
+                <div class="category-img-container">
+                    <img src="https://tse1.mm.bing.net/th/id/OIP.Ffyu7Wbezo-dCIsVVols0AHaE7?pid=Api&P=0&h=180" alt="Cooking">
+                </div>
+                <div class="category-info">
+                    <h2>Cooking Essentials</h2>
+                    <p>Get all stuff related to cooking without wasting your petrol</p>
+                    <a href="Cooking.jsp" class="shop-btn">Shop Now</a>
+                </div>
+            </div>
+        </div>  
+
+        <div class="category-row">
+            <div class="category-item">
+                <div class="category-img-container">
+                    <img src="https://tse4.mm.bing.net/th/id/OIP.4lYHfGrZ5qSs5hVnCMUICAHaHa?pid=Api&P=0&h=180" alt="Snacks">
+                </div>
+                <div class="category-info">
+                    <h2>Snacks</h2>
+                    <p>Healthy snacks delivered to your doorstep  </p>
+                    <a href="Snacks.jsp" class="shop-btn">Shop Now</a>
+                </div>
+            </div>
+            
+            <div class="category-item">
+                <div class="category-img-container">
+                    <img src="https://tse1.mm.bing.net/th/id/OIP.xkHVg6sgPNtUGh2SKy5jwAHaE8?pid=Api&P=0&h=180" alt="Dresses">
+                </div>
+                <div class="category-info">
+                    <h2>Dresses</h2>
+                    <p>Latest fashion trends for men, women and children</p>
+                    <a href="Dresses.jsp" class="shop-btn">Shop Now</a>
+                </div>
+            </div>
+            
+            <div class="category-item">
+                <div class="category-img-container">
+                    <img src="https://tse1.mm.bing.net/th/id/OIP.ZOaKe76Uf9hn8zpb-5j4LQHaFi?pid=Api&P=0&h=180" alt="Food">
+                </div>
+                <div class="category-info">
+                    <h2>Foods</h2>
+                    <p>Taste every food from your home itself</p>
+                    <a href="Food.jsp" class="shop-btn">Shop Now</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+      /* let slider = document.getElementById('slider');
+        let slides = document.querySelectorAll('.slide');
+        let totalSlides = slides.length;
+        let currentIndex = 0;
+
+        // Create indicators
+        function createIndicators() {
+            const indicatorsContainer = document.getElementById('indicators');
+            for (let i = 0; i < totalSlides; i++) {
+                const indicator = document.createElement('div');
+                indicator.classList.add('indicator');
+                if (i === 0) indicator.classList.add('active');
+                indicator.onclick = () => goToSlide(i);
+                indicatorsContainer.appendChild(indicator);
+            }
+        }
+
+        function updateSlider() {
+            slider.style.transform = `translateX(-${currentIndex * 100}%)`;
+
+            
+            // Update indicators
+            document.querySelectorAll('.indicator').forEach((indicator, index) => {
+                indicator.classList.toggle('active', index === currentIndex);
+            });
+        }
+
+        function nextSlide() {
+            currentIndex = (currentIndex + 1) % totalSlides;
+            updateSlider();
+        }
+
+        function prevSlide() {
+            currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+            updateSlider();
+        }
+
+        function goToSlide(index) {
+            currentIndex = index;
+            updateSlider();
+        }
+
+        // Auto-slide functionality
+        let intervalId = setInterval(nextSlide, 4000);
+
+        // Pause auto-slide on hover
+        const sliderContainer = document.getElementById('slider-container');
+        sliderContainer.addEventListener('mouseenter', () => {
+            clearInterval(intervalId);
+        });
+
+        sliderContainer.addEventListener('mouseleave', () => {
+            intervalId = setInterval(nextSlide, 4000);
+        });
+
+        // Initialize
+        window.onload = function() {
+            createIndicators();
+            updateSlider();
+        };*/
+
+     // Cookie Functions
+        function setCookie(name, value, days) {
+            let expires = '';
+            if (days) {
+                let date = new Date();
+                date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                expires = "; expires=" + date.toUTCString();
+            }
+            document.cookie = name + "=" + (value || "") + expires + "; path=/";
+        }
+
+        function getCookie(name) {
+            let nameEQ = name + "=";
+            let ca = document.cookie.split(';');
+            for (let i = 0; i < ca.length; i++) {
+                let c = ca[i].trim();
+                if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length);
+            }
+            return null;
+        }
+
+        // Welcome message for first-time visitors
+        if (!getCookie("visited")) {
+            setTimeout(() => {
+                alert("Welcome to ShoppingMart! Enjoy your shopping experience!");
+                setCookie("visited", "true", 7); // store for 7 days
+            }, 1000);
+        }
+    </script>
+</body>
+</html>
+
+
+
